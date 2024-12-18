@@ -1,0 +1,137 @@
+CREATE DATABASE IF NOT EXISTS channels_database;
+USE channels_database;
+
+-- Create `director` table
+CREATE TABLE `director` (
+    `ProfileID` INT(11) NOT NULL,
+    `D_Name` VARCHAR(100) DEFAULT NULL,
+    `D_Nationality` VARCHAR(50) DEFAULT NULL,
+    `D_Birthdate` DATE DEFAULT NULL,
+    PRIMARY KEY (`ProfileID`)
+);
+
+-- Create `movies` table
+CREATE TABLE `movies` (
+    `Movie_Name` VARCHAR(45) NOT NULL,
+    `Release_Date` DATE DEFAULT NULL,
+    `ProfileID` INT(11) DEFAULT NULL,
+    PRIMARY KEY (`Movie_Name`),
+    FOREIGN KEY (`ProfileID`) REFERENCES `director` (`ProfileID`)
+);
+
+-- Create `actors` table
+CREATE TABLE `actors` (
+    `ActorID` INT(11) NOT NULL,
+    `A_Name` VARCHAR(45) DEFAULT NULL,
+    `A_Nationality` VARCHAR(45) DEFAULT NULL,
+    `A_Birthdate` DATE DEFAULT NULL,
+    `Movie_Name` VARCHAR(100) DEFAULT NULL,
+    PRIMARY KEY (`ActorID`),
+    FOREIGN KEY (`Movie_Name`) REFERENCES `movies` (`Movie_Name`)
+);
+
+-- Create `channels` table
+CREATE TABLE `channels` (
+    `Channel_Frequency` FLOAT NOT NULL,
+    `Channel_Name` VARCHAR(45) DEFAULT NULL,
+    PRIMARY KEY (`Channel_Frequency`)
+);
+
+-- Create `stream` table
+CREATE TABLE `stream` (
+    `movie_Name` VARCHAR(45) NOT NULL,
+    `Channel_Frequency` FLOAT NOT NULL,
+    PRIMARY KEY (`movie_Name`, `Channel_Frequency`),
+    FOREIGN KEY (`movie_Name`) REFERENCES `movies` (`Movie_Name`),
+    FOREIGN KEY (`Channel_Frequency`) REFERENCES `channels` (`Channel_Frequency`)
+);
+
+-- Create `contract` table
+CREATE TABLE `contract` (
+    `ContractID` INT(11) NOT NULL,
+    `Start_Date` VARCHAR(45) DEFAULT NULL,
+    `End_Date` VARCHAR(45) DEFAULT NULL,
+    `ProfileID` INT(20) DEFAULT NULL,
+    PRIMARY KEY (`ContractID`),
+    FOREIGN KEY (`ProfileID`) REFERENCES `director` (`ProfileID`)
+);
+
+-- Insert data into `director`
+INSERT INTO `director` VALUES 
+(1, 'Ahmed Khaled', 'Egyptian', '1990-05-12'),
+(2, 'Fatima Noor', 'Pakistani', '1993-08-25'),
+(3, 'John Smith', 'American', '1985-12-30'),
+(4, 'Mia Wong', 'Chinese', '1997-03-14'),
+(5, 'Carlos Ramirez', 'Mexican', '1992-07-19'),
+(6, 'Sophia Brown', 'Canadian', '1995-10-22'),
+(7, 'Omar Al-Farsi', 'Omani', '1988-01-16'),
+(8, 'Hiroshi Tanaka', 'Japanese', '1983-04-09'),
+(9, 'Anita Singh', 'Indian', '1999-09-11'),
+(10, 'Emily White', 'British', '2001-06-05');
+
+-- Insert data into `movies`
+INSERT INTO `movies` VALUES 
+('Bound by Destiny', '2023-04-20', 2),
+('Echoes of Eternity', '2019-05-30', 9),
+('Fragments of Light', '2020-07-25', 8),
+('Journey Beyond', '2020-06-18', 3),
+('Legends Awaken', '2018-09-07', 2),
+('Shadows of Time', '2019-11-22', 2),
+('The Final Chapter', '2022-10-10', 10),
+('The Last Horizon', '2021-12-01', 7),
+('The Silent Path', '2021-01-15', 1),
+('Whispers of Tomorrow', '2022-03-14', 4);
+
+-- Insert data into `actors`
+INSERT INTO `actors` VALUES 
+(1, 'Ahmad', 'Jordan', '1990-07-30', 'The Silent Path'),
+(2, 'Khaled', 'Spain', '2000-08-20', 'Shadows of Time'),
+(3, 'Tareq', 'Jordan', '2003-01-31', 'Journey Beyond'),
+(4, 'Mohammad', 'Jordan', '1992-07-25', 'Shadows of Time'),
+(5, 'Mustafa', 'Lebanon', '1996-02-11', 'Whispers of Tomorrow'),
+(6, 'Khalil', 'Germany', '2005-09-09', 'Legends Awaken'),
+(7, 'Aya', 'Italy', '2008-11-26', 'Bound by Destiny'),
+(8, 'Raneem', 'Syria', '1998-04-16', 'The Last Horizon'),
+(9, 'Tasneem', 'Egypt', '2002-08-19', 'Fragments of Light'),
+(10, 'Noor', 'Russia', '2002-02-02', 'Echoes of Eternity'),
+(11, 'Jamal', 'USA', '2004-03-24', 'The Final Chapter');
+
+-- Insert data into `channels`
+INSERT INTO `channels` VALUES 
+(100.1, 'Channel 1'),
+(101.2, 'Channel 2'),
+(102.3, 'Channel 3'),
+(103.4, 'Channel 4'),
+(104.5, 'Channel 5'),
+(105.6, 'Channel 6'),
+(106.7, 'Channel 7'),
+(107.8, 'Channel 8'),
+(108.9, 'Channel 9'),
+(109, 'Channel 10');
+
+-- Insert data into `stream`
+INSERT INTO `stream` VALUES 
+('Bound by Destiny', 105.6),
+('Echoes of Eternity', 106.7),
+('Fragments of Light', 108.9),
+('Journey Beyond', 101.2),
+('Legends Awaken', 102.3),
+('Shadows of Time', 106.7),
+('The Final Chapter', 104.5),
+('The Last Horizon', 109),
+('The Silent Path', 100.1),
+('Whispers of Tomorrow', 105.6);
+
+-- Insert data into `contract`
+INSERT INTO `contract` VALUES 
+(1, '2023-01-01', '2023-12-31', 1),
+(2, '2023-02-15', '2023-11-14', 1),
+(3, '2023-03-20', '2024-03-19', 3),
+(4, '2023-04-05', '2024-04-04', 4),
+(5, '2023-05-10', '2024-05-09', 5),
+(6, '2023-06-25', '2024-06-24', 6),
+(7, '2023-07-30', '2024-07-29', 6),
+(8, '2023-08-15', '2024-08-14', 7),
+(9, '2023-09-01', '2024-08-31', 2),
+(10, '2023-10-20', '2024-10-19', 9);
+
