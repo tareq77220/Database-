@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS channels_database;
 USE channels_database;
 
--- Create `director` table
+
 CREATE TABLE `director` (
     `ProfileID` INT(11) NOT NULL,
     `D_Name` VARCHAR(100) DEFAULT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE `director` (
     PRIMARY KEY (`ProfileID`)
 );
 
--- Create `movies` table
+
 CREATE TABLE `movies` (
     `Movie_Name` VARCHAR(45) NOT NULL,
     `Release_Date` DATE DEFAULT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE `movies` (
     FOREIGN KEY (`ProfileID`) REFERENCES `director` (`ProfileID`)
 );
 
--- Create `actors` table
+
 CREATE TABLE `actors` (
     `ActorID` INT(11) NOT NULL,
     `A_Name` VARCHAR(45) DEFAULT NULL,
@@ -30,14 +30,14 @@ CREATE TABLE `actors` (
     FOREIGN KEY (`Movie_Name`) REFERENCES `movies` (`Movie_Name`)
 );
 
--- Create `channels` table
+
 CREATE TABLE `channels` (
     `Channel_Frequency` FLOAT NOT NULL,
     `Channel_Name` VARCHAR(45) DEFAULT NULL,
     PRIMARY KEY (`Channel_Frequency`)
 );
 
--- Create `stream` table
+
 CREATE TABLE `stream` (
     `movie_Name` VARCHAR(45) NOT NULL,
     `Channel_Frequency` FLOAT NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `stream` (
     FOREIGN KEY (`Channel_Frequency`) REFERENCES `channels` (`Channel_Frequency`)
 );
 
--- Create `contract` table
+
 CREATE TABLE `contract` (
     `ContractID` INT(11) NOT NULL,
     `Start_Date` VARCHAR(45) DEFAULT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE `contract` (
     FOREIGN KEY (`ProfileID`) REFERENCES `director` (`ProfileID`)
 );
 
--- Insert data into `director`
+--NOTE I use chatgpt to give me defuilt data
 INSERT INTO `director` VALUES 
 (1, 'Ahmed Khaled', 'Egyptian', '1990-05-12'),
 (2, 'Fatima Noor', 'Pakistani', '1993-08-25'),
@@ -69,7 +69,7 @@ INSERT INTO `director` VALUES
 (9, 'Anita Singh', 'Indian', '1999-09-11'),
 (10, 'Emily White', 'British', '2001-06-05');
 
--- Insert data into `movies`
+
 INSERT INTO `movies` VALUES 
 ('Bound by Destiny', '2023-04-20', 2),
 ('Echoes of Eternity', '2019-05-30', 9),
@@ -82,7 +82,7 @@ INSERT INTO `movies` VALUES
 ('The Silent Path', '2021-01-15', 1),
 ('Whispers of Tomorrow', '2022-03-14', 4);
 
--- Insert data into `actors`
+
 INSERT INTO `actors` VALUES 
 (1, 'Ahmad', 'Jordan', '1990-07-30', 'The Silent Path'),
 (2, 'Khaled', 'Spain', '2000-08-20', 'Shadows of Time'),
@@ -96,7 +96,7 @@ INSERT INTO `actors` VALUES
 (10, 'Noor', 'Russia', '2002-02-02', 'Echoes of Eternity'),
 (11, 'Jamal', 'USA', '2004-03-24', 'The Final Chapter');
 
--- Insert data into `channels`
+
 INSERT INTO `channels` VALUES 
 (100.1, 'Channel 1'),
 (101.2, 'Channel 2'),
@@ -109,7 +109,7 @@ INSERT INTO `channels` VALUES
 (108.9, 'Channel 9'),
 (109, 'Channel 10');
 
--- Insert data into `stream`
+
 INSERT INTO `stream` VALUES 
 ('Bound by Destiny', 105.6),
 ('Echoes of Eternity', 106.7),
@@ -122,7 +122,7 @@ INSERT INTO `stream` VALUES
 ('The Silent Path', 100.1),
 ('Whispers of Tomorrow', 105.6);
 
--- Insert data into `contract`
+
 INSERT INTO `contract` VALUES 
 (1, '2023-01-01', '2023-12-31', 1),
 (2, '2023-02-15', '2023-11-14', 1),
