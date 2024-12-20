@@ -56,7 +56,7 @@ CREATE TABLE `contract` (
     FOREIGN KEY (`ProfileID`) REFERENCES `director` (`ProfileID`)
 );
 
---NOTE I use chatgpt to give me defuilt data
+-- NOTE I use chatgpt to give me defuilt data
 INSERT INTO `director` VALUES 
 (1, 'Ahmed Khaled', 'Egyptian', '1990-05-12'),
 (2, 'Fatima Noor', 'Pakistani', '1993-08-25'),
